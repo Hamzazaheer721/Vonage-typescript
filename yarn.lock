@@ -1580,6 +1580,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@opentok/client@^2.20.2":
+  version "2.20.2"
+  resolved "https://registry.yarnpkg.com/@opentok/client/-/client-2.20.2.tgz#5a04e4a1c399feea7599681594cd58ff06654edc"
+  integrity sha512-pkozRuO2pAGBo46L7PC4ZWtvSX87GhlUbsowZkeB853ABI3LOePIx+4ojUIlDB1I8E2x/ljHhpKT/EHH/baA6g==
+
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.4.3.tgz#1eec460596d200c0236bf195b078a5d1df89b766"

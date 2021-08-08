@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import OT from '@opentok/client'
 
 // eslint-disable-next-line import/prefer-default-export
 export const useGetDevices = () => {
