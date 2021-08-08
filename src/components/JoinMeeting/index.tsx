@@ -1,9 +1,38 @@
-import { FC } from 'react';
+import { OTPublisher, OTSession } from 'opentok-react';
+import { FC, useState } from 'react';
 
-const JoinMeetingComponent: FC <{}> = () => {
-  console.log('hey')
+interface IJoinProps {
+  apiKey : string,
+  sessionId: string,
+  token : string,
+}
+const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoinProps) => {
+  const [error, setError] = useState<any>(null);
+
+  const [connected, setConnected] = useState <boolean>(false);
+
+  const sessionEvents = {
+    sessionConnected: () => {
+      setConnected(true);
+    },
+    setDisconnected: () => {
+      setConnected(false)
+    },
+  }
+  const onError = (err: any) => {
+    setError(`Failed to connect : ${err.message}`);
+  }
   return (
-    <h1>hey</h1>
+    <OTSession
+      apiKey={apiKey}
+      sessionId={sessionId}
+      token={token}
+      eventHandlers={sessionEvents}
+      onError={onError}
+    >
+      {error ? <div>{error}</div> : null}
+
+    </OTSession>
   )
 }
 
