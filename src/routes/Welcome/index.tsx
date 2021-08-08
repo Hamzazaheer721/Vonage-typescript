@@ -2,7 +2,8 @@ import { FC, lazy, Suspense } from 'react';
 import Loader from '../../components/Loader';
 
 const LazyView = lazy(() => import('./view'))
-const Welcome: FC<any> = (props) => (
+
+const Welcome: FC<{}> = (props) => (
   <Suspense fallback={Loader}>
     <LazyView {...props} />
   </Suspense>

@@ -6,12 +6,17 @@ export const Container = styled.div`
   height: 400px;
   width: 500px; 
   border: 3px solid black;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
 `
 export const WelcomeText = styled.h1`
-  color: black;
-  position: absolute;
-  right: 8rem; 
+  color: black; 
   font-size : 20px; 
-  
+`
+export const JoinRoomButton = styled.button`
+  height: 60px;
+  width: 120px;
 `
