@@ -1,5 +1,8 @@
+/* eslint-disable no-console */
 import { OTSession, OTStreams } from 'opentok-react';
-import { FC, useState } from 'react';
+import {
+  FC, useState,
+} from 'react';
 import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
@@ -7,9 +10,10 @@ import SubscriberComponent from '../Subscriber';
 interface IJoinProps {
   apiKey : string,
   sessionId: string,
-  token : string,
+  tokenToSend : string,
 }
-const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoinProps) => {
+
+const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, tokenToSend }:IJoinProps) => {
   const [error, setError] = useState<any>(null);
 
   const [connected, setConnected] = useState <boolean>(false);
@@ -31,7 +35,7 @@ const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoi
       <OTSession
         apiKey={apiKey}
         sessionId={sessionId}
-        token={token}
+        token={tokenToSend}
         eventHandlers={sessionEvents}
         onError={onError}
       >
