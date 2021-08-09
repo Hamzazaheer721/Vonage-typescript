@@ -6,8 +6,8 @@ const LOGIN = gql`
       id
       email
       firstName
-      LastName
-      ImageUrl
+      lastName
+      imageUrl
       token
       isAdmin
       isVerified
