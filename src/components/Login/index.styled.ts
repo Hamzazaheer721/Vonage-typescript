@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-const Form = styled.form`
+export const Form = styled.form`
     width: 100%;
     display: flex;
-    flex-direction : colomn;
-    justify-content: center;
-    align-items : center;
+    flex-direction : column;
+    justify-content: space-around;
+    align-items : center; 
 `
 export const InputContainer = styled.input`
     margin-top: 10px;
@@ -17,5 +17,9 @@ export const InputContainer = styled.input`
       box-shadow: 0px 0px 2px gray;
     }
 `
-
-export default Form;
+export const Button = styled.button`
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+`
