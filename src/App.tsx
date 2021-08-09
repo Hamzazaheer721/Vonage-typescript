@@ -1,8 +1,13 @@
+import { ApolloProvider } from '@apollo/client'
+import { client } from './config/apollo'
 import RouterComponent from './routes'
 
 function App() {
   return (
-    <RouterComponent />
+    <ApolloProvider client={client}>
+      <RouterComponent />
+    </ApolloProvider>
+
   )
 }
 
