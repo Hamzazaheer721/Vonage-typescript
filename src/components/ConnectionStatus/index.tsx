@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef } from 'react'
 
 interface IConnectionProps {
-  connection? : string;
+  connection? : boolean;
 }
 const ConnectionStatusComponent : FC<IConnectionProps> = ({ connection }:IConnectionProps) => {
   const status = useRef<string>('');

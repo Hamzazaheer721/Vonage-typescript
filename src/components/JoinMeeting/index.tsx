@@ -12,7 +12,7 @@ interface IJoinProps {
 const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoinProps) => {
   const [error, setError] = useState<any>(null);
 
-  const [, setConnected] = useState <boolean>(false);
+  const [connected, setConnected] = useState <boolean>(false);
 
   const sessionEvents = {
     sessionConnected: () => {
@@ -36,7 +36,7 @@ const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoi
         onError={onError}
       >
         {error ? <div>{error}</div> : null}
-        <ConnectionStatusComponent />
+        <ConnectionStatusComponent connection={connected} />
         <PublisherComponent />
         <OTStreams>
           <SubscriberComponent />
