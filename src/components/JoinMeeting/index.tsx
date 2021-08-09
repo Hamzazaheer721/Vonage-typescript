@@ -1,5 +1,8 @@
-import { OTPublisher, OTSession } from 'opentok-react';
+import { OTSession, OTStreams } from 'opentok-react';
 import { FC, useState } from 'react';
+import ConnectionStatusComponent from '../ConnectionStatus';
+import PublisherComponent from '../Publisher';
+import SubscriberComponent from '../Subscriber';
 
 interface IJoinProps {
   apiKey : string,
@@ -9,7 +12,7 @@ interface IJoinProps {
 const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoinProps) => {
   const [error, setError] = useState<any>(null);
 
-  const [connected, setConnected] = useState <boolean>(false);
+  const [, setConnected] = useState <boolean>(false);
 
   const sessionEvents = {
     sessionConnected: () => {
@@ -23,16 +26,24 @@ const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId, token }:IJoi
     setError(`Failed to connect : ${err.message}`);
   }
   return (
-    <OTSession
-      apiKey={apiKey}
-      sessionId={sessionId}
-      token={token}
-      eventHandlers={sessionEvents}
-      onError={onError}
-    >
-      {error ? <div>{error}</div> : null}
+    <div>
+      <h1>Welcome to the room</h1>
+      <OTSession
+        apiKey={apiKey}
+        sessionId={sessionId}
+        token={token}
+        eventHandlers={sessionEvents}
+        onError={onError}
+      >
+        {error ? <div>{error}</div> : null}
+        <ConnectionStatusComponent />
+        <PublisherComponent />
+        <OTStreams>
+          <SubscriberComponent />
+        </OTStreams>
+      </OTSession>
+    </div>
 
-    </OTSession>
   )
 }
 

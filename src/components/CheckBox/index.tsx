@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/require-default-props */
 import React, { FC, useState, useEffect } from 'react'
 import { uniqueId } from 'lodash'
 
 interface ICheckBoxProps{
-  initialChecked : boolean
-  // eslint-disable-next-line no-unused-vars
-  _onChange : (isChecked? : boolean) => void;
+  initialChecked? : any;
+  _onChange? : (isChecked? : any) => any;
   label : string;
 }
 
@@ -13,7 +14,7 @@ const CheckboxComponent : FC<ICheckBoxProps> = ({
   _onChange, label,
 }:ICheckBoxProps) => {
   const [id] = useState<string>(uniqueId('Checkbox'))
-  const [isChecked, setIsChecked] = useState<boolean>(initialChecked)
+  const [isChecked, setIsChecked] = useState<any>(initialChecked)
   const onChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event?.currentTarget?.checked);
   }

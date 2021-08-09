@@ -1,5 +1,6 @@
 import { OTPublisher } from 'opentok-react';
 import { FC, useState } from 'react';
+import CheckboxComponent from '../CheckBox';
 
 const PublisherComponent : FC<{}> = () => {
   const [error, setError] = useState<any>(null);
@@ -46,6 +47,9 @@ const PublisherComponent : FC<{}> = () => {
         }}
         onError={onError}
       />
+      <CheckboxComponent label="Share Screen" _onChange={changeVideoSource} />
+      <CheckboxComponent label="Publish Audio" _onChange={setAudio} />
+      <CheckboxComponent label="Publish Video" _onChange={setVideo} />
     </div>
   )
 }

@@ -1,7 +1,8 @@
+/* eslint-disable react/require-default-props */
 import { FC, useEffect, useRef } from 'react'
 
 interface IConnectionProps {
-  connection : string;
+  connection? : string;
 }
 const ConnectionStatusComponent : FC<IConnectionProps> = ({ connection }:IConnectionProps) => {
   const status = useRef<string>('');
