@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { FC, useState } from 'react';
-import Form from './index.styled';
+import Form, { InputContainer } from './index.styled';
 
 const LoginComponent : FC <{}> = () => {
   const [email, setEmail] = useState<string>('');
@@ -10,7 +10,7 @@ const LoginComponent : FC <{}> = () => {
 
   return (
     <Form>
-      <input type="text" placeholder="Please Enter email" />
+      <InputContainer type="text" placeholder="Please Enter email" />
     </Form>
   )
 }

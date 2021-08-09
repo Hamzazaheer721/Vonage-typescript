@@ -8,7 +8,14 @@ const Form = styled.form`
     align-items : center;
 `
 export const InputContainer = styled.input`
-    margin-top: 30px;
+    margin-top: 10px;
+    border-radius : 8px;
+    width: 60%;
+    &:focus{
+      border-radius: 8px;
+      outline: none;
+      box-shadow: 0px 0px 2px gray;
+    }
 `
 
 export default Form;
