@@ -6,7 +6,6 @@ const SubscriberComponent : FC<{}> = () => {
   const [audio, changeAudio] = useState<boolean>(true);
   const [video, changeVideo] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
-
   const setAudio = (_audio: any) => {
     changeAudio(_audio);
   }

@@ -8,12 +8,10 @@ const PublisherComponent : FC<{}> = () => {
   const [video, changeVideo] = useState<any>(true);
   const [videoSource, setVideoSource] = useState<any>('camera');
 
-  // eslint-disable-next-line no-redeclare
   const setAudio = (_audio: any) => {
     changeAudio(_audio)
   }
 
-  // eslint-disable-next-line no-redeclare
   const setVideo = (_video : any) => {
     changeVideo(_video)
   }
