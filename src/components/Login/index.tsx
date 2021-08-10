@@ -14,7 +14,6 @@ const LoginComponent : FC <{}> = () => {
   const [message, setMessage] = useState<string>('');
   const history = useHistory();
   const handleSubmit = async (e: {preventDefault: ()=> void}) => {
-    // eslint-disable-next-line no-console
     e.preventDefault();
     setLoading(true);
     const response = await loginService({ email: email?.toLowerCase().trim() })
