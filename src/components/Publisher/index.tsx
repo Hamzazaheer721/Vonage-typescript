@@ -31,7 +31,7 @@ const PublisherComponent : FC<{}> = () => {
 
   return (
     <div>
-      Publisher
+      I am going in Publisher
       {error ? (
         <div>
           {error}
