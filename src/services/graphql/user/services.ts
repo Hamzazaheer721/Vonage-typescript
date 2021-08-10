@@ -1,15 +1,15 @@
+/* eslint-disable no-console */
 import { client } from '../../../config/apollo';
-import LOGIN from './mutations';
+import LOGIN from './queries';
 import { LoginInput } from './user.models';
 
 const loginService = async (login : LoginInput) => {
   try {
-    const { data } = await client.mutate({
-      mutation: LOGIN,
+    const { data } = await client.query({
+      query: LOGIN,
       variables: {
-        input: {
-          ...login,
-        },
+        email: login.email,
+        password: login?.password,
       },
     })
     return data?.login;

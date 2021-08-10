@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { debounce } from 'lodash';
 import { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid'
@@ -39,17 +40,16 @@ const LoginComponent : FC <{}> = () => {
     }
   }
 
-  const handleEmailChange = (e : any) => {
-    console.info(e.target.value)
+  const handleEmailChange = debounce((e : any) => {
     setEmail(e.target.value)
-  }
+  }, 1000)
 
   return (
     <>
       {loading && <Loader />}
       <Form onSubmit={handleSubmit}>
         {message && (<div>{message}</div>) }
-        <InputContainer type="text" placeholder="Please Enter email" value={email} onChange={handleEmailChange} />
+        <InputContainer type="text" placeholder="Please Enter email" onChange={handleEmailChange} />
         <Button>
           Login
         </Button>

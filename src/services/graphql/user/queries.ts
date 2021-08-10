@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const LOGIN = gql`
-  mutation Login ($input : LoginInput) {
-    login (input : $input) {
+export const LOGIN = gql`
+  query LOGIN($email: String!, $password: String) {
+    login(email: $email, password: $password) {
       id
       email
       firstName
@@ -13,6 +13,6 @@ const LOGIN = gql`
       isVerified
     }
   }
-`
+`;
 
 export default LOGIN;
