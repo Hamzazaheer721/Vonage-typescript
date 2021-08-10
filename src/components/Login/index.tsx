@@ -25,8 +25,6 @@ const LoginComponent : FC <{}> = () => {
       } else {
         setMessage('Some unexpected error occurred!');
       }
-      // eslint-disable-next-line no-console
-      console.error(response);
       setLoading(false);
     } else if (response && !response.isVerified) {
       setMessage('User is not verified')
