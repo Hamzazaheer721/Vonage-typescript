@@ -70,7 +70,7 @@ const JoinMeetingComponent: FC <{}> = () => {
           <ConnectionStatusComponent connection={connected} />
           <PublisherComponent />
           {streams && streams.map((_stream : any) => (
-            <SubscriberComponent stream={_stream} />
+            <SubscriberComponent stream={_stream} key={_stream.connection.id} />
           ))}
         </>
         )}
