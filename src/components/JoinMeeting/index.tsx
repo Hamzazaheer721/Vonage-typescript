@@ -26,6 +26,10 @@ const JoinMeetingComponent: FC <{}> = () => {
       console.info('CONNECTION CREATED');
       setConnected(true);
     },
+    connectionDestroyed: () => {
+      console.log('CONNECTION DESTROYED');
+      setConnected(false);
+    },
     streamCreated: ({ stream } : any) => {
       console.log('STREAM HAS BEEN CREATED')
       setStreams((_streams : any) => [..._streams, stream]);

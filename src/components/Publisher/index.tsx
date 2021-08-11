@@ -44,6 +44,7 @@ const PublisherComponent : FC<{}> = () => {
     streamDestroyed: ({ reason }: { reason: string }) => {
       if (reason === 'mediaStopped') {
         // User clicked stop sharing
+        console.info('STREAM HAS BEEN STOPPED')
       } else {
         console.info(`Publisher stream destroyed because: ${reason}`);
       }
