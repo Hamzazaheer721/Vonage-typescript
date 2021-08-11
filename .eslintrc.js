@@ -32,6 +32,8 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     'react/jsx-props-no-spreading': 'off',
     'linebreak-style': 0,
+    // 'max-len': ['error', { code: 500 }],
+    'max-len': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

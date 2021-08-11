@@ -9,12 +9,7 @@ import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
 
-interface IJoinProps {
-  apiKey : string,
-  sessionId: string,
-}
-
-const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId }:IJoinProps) => {
+const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>(null);
   const [tokenToSend, setToken] = useState<string>('')
   useEffect(() => {
@@ -42,34 +37,13 @@ const JoinMeetingComponent: FC <IJoinProps> = ({ apiKey, sessionId }:IJoinProps)
       setConnected(false)
     },
   }
-
-  const publisherEventHandlers = {
-    accessDenied: () => {
-      console.info('User denied access to media source');
-      setConnected(false)
-    },
-    streamCreated: () => {
-      console.info('Publisher stream created');
-      setConnected(true)
-    },
-    streamDestroyed: ({ reason }: { reason: string }) => {
-      if (reason === 'mediaStopped') {
-        // User clicked stop sharing
-      } else {
-        console.info(`Publisher stream destroyed because: ${reason}`);
-      }
-    },
-  };
   const onError = (err: any) => {
     setError(`Failed to connect : ${err.message}`);
   }
 
-  if (!tokenToSend || !sessionId) { return <></>; }
-
   return (
     <div>
       <h1>Welcome to the room</h1>
-      {tokenToSend}
       <OTSession
         apiKey="47302914"
         sessionId="2_MX40NzMwMjkxNH5-MTYyODU5NzcxNTg1MH45QTBtcVVrQ3Q3MGpjRVUrVnlHMllVRGF-fg"
