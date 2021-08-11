@@ -3,29 +3,23 @@
 /* eslint-disable no-console */
 import { OTSession, OTStreams } from 'opentok-react';
 import {
-  FC, useEffect, useState,
+  useCallback,
+  FC, useState,
 } from 'react';
+
 import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
 
 const JoinMeetingComponent: FC <{}> = () => {
-  const [error, setError] = useState<any>(null);
-  const [tokenToSend, setToken] = useState<string>('')
+  const [error, setError] = useState<any>('');
   const [streams, setStreams] = useState<any>([])
   const [connected, setConnected] = useState <boolean>(false);
-  useEffect(() => {
-    const local = localStorage.getItem('token');
-    if (local === null) {
-      setToken(String('XYZ'))
-    } else {
-      setToken(String(local))
-    }
-  }, [tokenToSend])
 
-  const onError = (err: any) => {
+  const onError = useCallback((err: any) => {
+    console.log(err.message)
     setError(`Failed to connect : ${err.message}`);
-  }
+  }, [])
 
   const sessionEventHandler = {
     streamCreated: ({ stream } : any) => {
@@ -40,7 +34,7 @@ const JoinMeetingComponent: FC <{}> = () => {
       })
     },
     streamPropertyChanged: ({ stream }:any) => {
-      console.log('STREAM HAS BEE CHANGED');
+      console.log('STREAM HAS BEEN CHANGED');
       setStreams((_streams : any) => {
         _streams.filter((_stream : any) => (stream.id === _stream.id ? stream : _stream))
       })
@@ -57,7 +51,7 @@ const JoinMeetingComponent: FC <{}> = () => {
         onError={onError}
       >
         {error ? <div>{error}</div> : null}
-        { connected && (
+        { !connected && (
         <>
           <ConnectionStatusComponent connection={connected} />
           <PublisherComponent />
