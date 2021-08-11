@@ -17,7 +17,6 @@ const JoinMeetingComponent: FC <{}> = () => {
   const [connected, setConnected] = useState <boolean>(false);
 
   const onError = useCallback((err: any) => {
-    console.log(err.message)
     setError(`Failed to connect : ${err.message}`);
   }, [])
 
