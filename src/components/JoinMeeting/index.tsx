@@ -26,21 +26,27 @@ const JoinMeetingComponent: FC <{}> = () => {
       setConnected(true);
     },
     connectionDestroyed: () => {
-      console.log('CONNECTION DESTROYED');
+      console.info('CONNECTION DESTROYED');
       setConnected(false);
     },
+    sessionConnected: () => {
+      console.info('SESSION CONNECTED')
+    },
+    sessionDestroyed: () => {
+      console.info('SESSION DESTROYED')
+    },
     streamCreated: ({ stream } : any) => {
-      console.log('STREAM HAS BEEN CREATED')
+      console.info('STREAM HAS BEEN CREATED')
       setStreams((_streams : any) => [..._streams, stream]);
     },
     streamDestroyed: ({ stream } : any) => {
-      console.log('STREAM HAS BEEN DESTROYED');
+      console.info('STREAM HAS BEEN DESTROYED');
       setStreams((_streams: any) => {
         _streams?.filter((_stream: any) => (_stream.id === stream.id))
       })
     },
     streamPropertyChanged: ({ stream }:any) => {
-      console.log('STREAM HAS BEEN CHANGED');
+      console.info('STREAM HAS BEEN CHANGED');
       setStreams((_streams : any) => {
         if (_streams) {
           _streams?.map((_stream : any) => (stream.id === _stream.id ? stream : _stream))
@@ -63,9 +69,9 @@ const JoinMeetingComponent: FC <{}> = () => {
         <>
           <ConnectionStatusComponent connection={connected} />
           <PublisherComponent />
-          <OTStreams>
-            <SubscriberComponent />
-          </OTStreams>
+          {streams && streams.map((_stream : any) => (
+            <SubscriberComponent stream={_stream} />
+          ))}
         </>
         )}
       </OTSession>

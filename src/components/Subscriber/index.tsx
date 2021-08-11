@@ -2,7 +2,10 @@ import { FC, useState } from 'react';
 import { OTSubscriber } from 'opentok-react';
 import CheckboxComponent from '../CheckBox';
 
-const SubscriberComponent : FC<{}> = () => {
+interface ISubscriberComponentProps{
+  stream : any
+}
+const SubscriberComponent : FC<ISubscriberComponentProps> = ({ stream }:ISubscriberComponentProps) => {
   const [audio, changeAudio] = useState<boolean>(true);
   const [video, changeVideo] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
@@ -28,6 +31,7 @@ const SubscriberComponent : FC<{}> = () => {
       </h1>
       )}
       <OTSubscriber
+        stream={stream}
         properties={{
           subscribeToAudio: audio,
           subscribeToVideo: video,
