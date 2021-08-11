@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { OTSession, OTStreams } from 'opentok-react';
-import { setMaxListeners } from 'process';
 import {
   FC, useEffect, useState,
 } from 'react';
@@ -14,6 +13,7 @@ const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>(null);
   const [tokenToSend, setToken] = useState<string>('')
   const [streams, setStreams] = useState<any>([])
+  const [connected, setConnected] = useState <boolean>(false);
   useEffect(() => {
     const local = localStorage.getItem('token');
     if (local === null) {
@@ -22,16 +22,16 @@ const JoinMeetingComponent: FC <{}> = () => {
       setToken(String(local))
     }
   }, [tokenToSend])
-  const [connected, setConnected] = useState <boolean>(false);
 
   const onError = (err: any) => {
     setError(`Failed to connect : ${err.message}`);
   }
 
-  const sessionEventhandler = {
+  const sessionEventHandler = {
     streamCreated: ({ stream } : any) => {
       console.log('STREAM HAS BEEN CREATED')
       setStreams((_streams : any) => [..._streams, stream]);
+      setConnected(true);
     },
     streamDestroyed: ({ stream } : any) => {
       console.log('STREAM HAS BEEN DESTROYED');
