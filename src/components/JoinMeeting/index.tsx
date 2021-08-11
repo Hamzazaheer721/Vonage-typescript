@@ -37,13 +37,15 @@ const JoinMeetingComponent: FC <{}> = () => {
     streamDestroyed: ({ stream } : any) => {
       console.log('STREAM HAS BEEN DESTROYED');
       setStreams((_streams: any) => {
-        _streams.filter((_stream: any) => (_stream.id === stream.id))
+        _streams?.filter((_stream: any) => (_stream.id === stream.id))
       })
     },
     streamPropertyChanged: ({ stream }:any) => {
       console.log('STREAM HAS BEEN CHANGED');
       setStreams((_streams : any) => {
-        _streams.filter((_stream : any) => (stream.id === _stream.id ? stream : _stream))
+        if (_streams) {
+          _streams?.map((_stream : any) => (stream.id === _stream.id ? stream : _stream))
+        }
       })
     },
   }
