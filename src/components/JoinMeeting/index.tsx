@@ -28,7 +28,7 @@ const JoinMeetingComponent: FC <{}> = () => {
 
   const publisherEventHandlers = {
     accessDenied: () => {
-      console.log('User denied access to the media Source')
+      console.log('User denied acces to the media Source')
     },
     streamCreated: () => {
       console.log('Publisher Stream has been created')
@@ -50,6 +50,7 @@ const JoinMeetingComponent: FC <{}> = () => {
         sessionId="2_MX40NzMwMjkxNH5-MTYyODU5NzcxNTg1MH45QTBtcVVrQ3Q3MGpjRVUrVnlHMllVRGF-fg"
         token="T1==cGFydG5lcl9pZD00NzMwMjkxNCZzaWc9MzU4ZDFiYTg0NjY4ODhlN2FkZGU3NTI3ZGNkYmM3MmU0MTI3OTUxMzpzZXNzaW9uX2lkPTJfTVg0ME56TXdNamt4Tkg1LU1UWXlPRFU1TnpjeE5UZzFNSDQ1UVRCdGNWVnJRM1EzTUdwalJWVXJWbmxITWxsVlJHRi1mZyZjcmVhdGVfdGltZT0xNjI4NTk3NzU2Jm5vbmNlPTAuNDg1MDkxMDMzODc4OTI0Mjcmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTYzMTE4OTc1NCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
         eventHandlers={publisherEventHandlers}
+        onError={onError}
       >
         {error ? <div>{error}</div> : null}
         { connected && (
