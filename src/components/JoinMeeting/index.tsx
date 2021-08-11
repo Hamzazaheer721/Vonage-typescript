@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 import { OTSession, OTStreams } from 'opentok-react';
 import {
+  useEffect,
   useCallback,
   FC, useState,
 } from 'react';
@@ -64,7 +65,12 @@ const JoinMeetingComponent: FC <{}> = () => {
         eventHandlers={sessionEventHandler}
         onError={onError}
       >
-        {error ? <div>{error}</div> : null}
+        {error && (
+        <div>
+          {' '}
+          {error}
+        </div>
+        )}
         {connected && (
         <>
           <ConnectionStatusComponent connection={connected} />
