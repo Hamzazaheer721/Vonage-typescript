@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
-import React, {
+import {
   createRef, FC, useState,
 } from 'react';
 import { OTPublisher, OTPublisherRef } from 'opentok-react';
@@ -55,15 +54,6 @@ const PublisherComponent : FC<{}> = () => {
     },
   };
 
-  // const handleButtonPressed = () => {
-  //   if (otPublisher.current) {
-  //     onSend(inputValue);
-  //   }
-  // }
-
-  // const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(e.target.value)
-  // }
   return (
     <div>
       <h5>I&apos;m publishing the following the video</h5>
