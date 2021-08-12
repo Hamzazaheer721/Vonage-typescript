@@ -9,13 +9,11 @@ import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
 import JoinMeetingContainer, { Text } from './index.styled';
-import { InputContainer } from '../Login/index.styled';
 
 const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>('');
   const [streams, setStreams] = useState<any>([])
   const [connected, setConnected] = useState <boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
   const otSession = useRef<any>();
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
@@ -79,12 +77,6 @@ const JoinMeetingComponent: FC <{}> = () => {
   //   console.log('onSignalReceive => ', JSON.parse(signal.data));
   //   // based on signal data type you can do use switch or conditional statements
   // }
-  const onSignalSend = () => {
-  }
-
-  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
 
   return (
     <JoinMeetingContainer>
@@ -104,10 +96,10 @@ const JoinMeetingComponent: FC <{}> = () => {
           <Text>{error}</Text>
         </div>
         )}
-        <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
         {connected && (
         <>
           <ConnectionStatusComponent connection={connected} />
+
           <PublisherComponent />
           {streams && streams.map((_stream : any) => (
             <SubscriberComponent stream={_stream} key={_stream.connection.id} />

@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import {
+import React, {
   createRef, FC, useState,
 } from 'react';
 import { OTPublisher, OTPublisherRef } from 'opentok-react';
 import CheckboxComponent from '../CheckBox';
+import { Button, InputContainer } from '../Login/index.styled';
 
 // interface IPublisherProps {
 //   changeConnected: () => void;
@@ -13,6 +14,7 @@ const PublisherComponent : FC<{}> = () => {
   const [audio, changeAudio] = useState<any>(true);
   const [video, changeVideo] = useState<any>(true);
   const [videoSource, setVideoSource] = useState<any>('camera');
+  const [inputValue, setInputValue] = useState<string>('');
   const otPublisher = createRef<OTPublisherRef>()
   const setAudio = (_audio: any) => {
     changeAudio(_audio)
@@ -55,6 +57,20 @@ const PublisherComponent : FC<{}> = () => {
       }
     },
   };
+  // eslint-disable-next-line no-unused-vars
+  const onSignalReceive = (data: any) => {
+    console.info('onSignalReceive');
+    console.info(data)
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  const onSignalSend = (data : any) => {
+
+  }
+
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }
   return (
     <div>
       <h5>I&apos;m publishing the following the video</h5>
@@ -63,6 +79,8 @@ const PublisherComponent : FC<{}> = () => {
           {error}
         </div>
       ) : null}
+      <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
+      <Button onClick={onSignalSend}> Click to send message</Button>
       <OTPublisher
         ref={otPublisher}
         properties={{
