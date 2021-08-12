@@ -65,7 +65,9 @@ const PublisherComponent : FC<{}> = () => {
 
   // eslint-disable-next-line no-unused-vars
   const onSignalSend = (data : any) => {
-
+    if (otPublisher.current) {
+      console.log(otPublisher.current.getPublisher().stream.connection.connectionId)
+    }
   }
 
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
