@@ -14,7 +14,10 @@ import {
 import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
-import JoinMeetingContainer, { MainContainer, StreamsContainer, Text } from './index.styled';
+import {
+  JoinMeetingContainer, MainContainer, SendMessageContainer, StreamsContainer, Text,
+} from './index.styled';
+import { Button, InputContainer } from '../Login/index.styled';
 
 const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>('');
@@ -23,6 +26,7 @@ const JoinMeetingComponent: FC <{}> = () => {
   const otSessionRef = useRef<{
     sessionHelper: { session: Session; streams: Stream };
   }>();
+  const [inputValue, setInputValue] = useState<string>('');
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
     streams ? console.info('Stream :', streams) : null
@@ -69,13 +73,17 @@ const JoinMeetingComponent: FC <{}> = () => {
     },
   }
 
-  const handleSend = useCallback((message: string) => {
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }
+
+  const handleSend = useCallback(() => {
     if (!otSessionRef.current?.sessionHelper.session) {
       return false
     }
     const { session } = otSessionRef.current.sessionHelper
     session.signal({
-      data: message,
+      data: inputValue,
     })
     return true;
   }, [])
@@ -103,7 +111,7 @@ const JoinMeetingComponent: FC <{}> = () => {
           <>
             <ConnectionStatusComponent connection={connected} />
             <StreamsContainer>
-              <PublisherComponent onSend={handleSend} />
+              <PublisherComponent />
               {streams && streams.map((_stream : any) => (
                 <SubscriberComponent stream={_stream} key={_stream.connection.id} />
               ))}
@@ -112,7 +120,10 @@ const JoinMeetingComponent: FC <{}> = () => {
           )}
         </OTSession>
       </JoinMeetingContainer>
-
+      <SendMessageContainer>
+        <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
+        <Button type="button" onClick={handleSend}> Click to send message</Button>
+      </SendMessageContainer>
     </MainContainer>
   )
 }
