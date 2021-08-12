@@ -67,6 +67,7 @@ export const Button = styled.button`
 `
 
 export const SmallestText = styled.div`
-    font-size: 12px;
+    margin-left: 10px;
+    font-size: 18px;
     color: #f5f5f5;
 `
