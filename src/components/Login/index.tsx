@@ -39,7 +39,7 @@ const LoginComponent : FC <{}> = () => {
 
   const handleEmailChange = debounce((e : any) => {
     setEmail(e.target.value)
-  }, 1000)
+  }, 600)
 
   return (
     <>
