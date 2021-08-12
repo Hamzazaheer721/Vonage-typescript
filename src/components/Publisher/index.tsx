@@ -69,7 +69,7 @@ const PublisherComponent : FC<{}> = () => {
         properties={{
           publishAudio: audio,
           publishVideo: video,
-          videoSource: videoSource === 'screen' ? 'screen' : undefined,
+          // videoSource: videoSource === 'screen' ? 'screen' : undefined,
         }}
         onPublish={onPublish}
         onError={onError}

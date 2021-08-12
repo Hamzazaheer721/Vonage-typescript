@@ -7,7 +7,7 @@ import React, {
 import { OTSession } from 'opentok-react';
 
 import {
-  Session, SessionEventHandlers, Stream,
+  Session, SessionEventHandlers, Stream, StreamCreatedEvent, StreamDestroyedEvent, StreamPropertyChangedEvent,
   // eslint-disable-next-line import/no-unresolved
 } from 'opentok-react/types/opentok';
 
@@ -18,9 +18,13 @@ import {
   JoinMeetingContainer, MainContainer, MessageWrapper, SendMessageContainer, StreamsContainer, Text, Button, InputContainer, ChatHeader, MainChatWindow,
 } from './index.styled';
 
+interface IStreams {
+  [streamId: string]: Stream;
+}
+
 const JoinMeetingComponent: FC <{}> = memo(() => {
   const [error, setError] = useState<any>('');
-  const [streams, setStreams] = useState<any>([])
+  const [streams, setStreams] = useState<IStreams>({})
   const [connected, setConnected] = useState <boolean>(false);
   const otSessionRef = useRef<{
     sessionHelper: { session: Session; streams: Stream };
@@ -39,7 +43,6 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
   const sessionEventHandler: SessionEventHandlers = {
     connectionCreated: () => {
       console.info('CONNECTION CREATED');
-
       setConnected(true);
     },
     connectionDestroyed: () => {
@@ -51,24 +54,25 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
         console.log('SIGNAL', signal)
       }
     },
-    streamCreated: ({ stream } : any) => {
+    streamCreated: ({ stream }: StreamCreatedEvent) => {
       console.info('STREAM HAS BEEN CREATED')
-      setStreams((_streams : any) => [..._streams, stream]);
+      setStreams((_streams) => ({ ...Object.assign(_streams, { [stream.streamId]: stream }) }));
     },
-    streamDestroyed: ({ stream } : any) => {
+    streamDestroyed: ({ stream } : StreamDestroyedEvent) => {
       console.info('STREAM HAS BEEN DESTROYED');
-      if (streams.length > 0) {
-        setStreams((_streams: any) => {
-          _streams?.filter((_stream: any) => (_stream.id === stream.id))
-        })
-      }
+      setStreams((_streams) => {
+        const streamsShallowCopy = { ..._streams };
+        delete streamsShallowCopy[stream.streamId]
+        console.info('streams:', _streams);
+        return { ...streamsShallowCopy }
+      })
     },
-    streamPropertyChanged: ({ stream }:any) => {
+    streamPropertyChanged: ({ stream }:StreamPropertyChangedEvent) => {
       console.info('STREAM HAS BEEN CHANGED');
-      setStreams((_streams : any) => {
-        if (_streams) {
-          _streams?.map((_stream : any) => (stream.id === _stream.id ? stream : _stream))
-        }
+      setStreams((pvStreams) => {
+        const pvStreamsShallowCopy = { ...pvStreams };
+        pvStreamsShallowCopy[stream.streamId] = stream;
+        return { ...pvStreamsShallowCopy }
       })
     },
   }
@@ -113,7 +117,7 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
             <ConnectionStatusComponent connection={connected} />
             <StreamsContainer>
               <PublisherComponent />
-              {streams && streams.map((_stream : any) => (
+              {streams && Object.keys(streams).map((streamId) => streams[streamId]).map((_stream : any) => (
                 <SubscriberComponent stream={_stream} key={_stream.connection.id} />
               ))}
             </StreamsContainer>
