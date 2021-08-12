@@ -1,19 +1,21 @@
 /* eslint-disable no-console */
-import { debounce } from 'lodash';
-import { FC, useState } from 'react';
+import {
+  FC, memo, useCallback, useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
+import { debounce } from 'lodash';
 import { v4 as uuidv4 } from 'uuid'
 import loginService from '../../services/graphql/user/services';
 import Loader from '../Loader';
 import { Form, Button, InputContainer } from './index.styled';
 
 const roomId = uuidv4();
-const LoginComponent : FC <{}> = () => {
+const LoginComponent : FC <{}> = memo(() => {
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const history = useHistory();
-  const handleSubmit = async (e: {preventDefault: ()=> void}) => {
+  const handleSubmit = useCallback(async (e: {preventDefault: ()=> void}) => {
     e.preventDefault();
     setLoading(true);
     const response = await loginService({ email: email?.toLowerCase().trim() })
@@ -35,7 +37,7 @@ const LoginComponent : FC <{}> = () => {
       localStorage.setItem('UserId', response.id)
       history.push(`/join-meeting/${roomId}`)
     }
-  }
+  }, [])
 
   const handleEmailChange = debounce((e : any) => {
     setEmail(e.target.value)
@@ -53,6 +55,6 @@ const LoginComponent : FC <{}> = () => {
       </Form>
     </>
   )
-}
+})
 
 export default LoginComponent;

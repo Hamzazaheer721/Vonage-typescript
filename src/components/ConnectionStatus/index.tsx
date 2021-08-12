@@ -1,10 +1,10 @@
 /* eslint-disable react/require-default-props */
-import { FC, useMemo } from 'react'
+import { FC, memo, useMemo } from 'react'
 
 interface IConnectionProps {
   connection? : boolean;
 }
-const ConnectionStatusComponent : FC<IConnectionProps> = ({ connection }:IConnectionProps) => {
+const ConnectionStatusComponent : FC<IConnectionProps> = memo(({ connection }:IConnectionProps) => {
   const status = useMemo(() => (connection ? 'Connected' : 'Not-Connected'), [connection])
   return (
     <div>
@@ -16,6 +16,6 @@ const ConnectionStatusComponent : FC<IConnectionProps> = ({ connection }:IConnec
       </strong>
     </div>
   )
-}
+})
 
 export default ConnectionStatusComponent;

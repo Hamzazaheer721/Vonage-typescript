@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/require-default-props */
-import React, { FC, useState, useEffect } from 'react'
+import React, {
+  FC, useState, useEffect, memo, useCallback,
+} from 'react'
 import { uniqueId } from 'lodash'
 
 interface ICheckBoxProps{
@@ -9,18 +11,20 @@ interface ICheckBoxProps{
   label : string;
 }
 
-const CheckboxComponent : FC<ICheckBoxProps> = ({
+const CheckboxComponent : FC<ICheckBoxProps> = memo(({
   initialChecked,
   _onChange, label,
 }:ICheckBoxProps) => {
   const [id] = useState<string>(uniqueId('Checkbox'))
   const [isChecked, setIsChecked] = useState<any>(initialChecked)
-  const onChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event?.currentTarget?.checked);
-  }
+
   useEffect(() => {
     if (typeof _onChange === 'function') { _onChange(isChecked); }
   }, [isChecked])
+
+  const onChange = useCallback((event : React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event?.currentTarget?.checked);
+  }, [])
 
   return (
     <div>
@@ -35,6 +39,6 @@ const CheckboxComponent : FC<ICheckBoxProps> = ({
       />
     </div>
   )
-}
+})
 
 export default CheckboxComponent;

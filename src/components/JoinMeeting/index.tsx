@@ -2,7 +2,7 @@
 import React, {
   useEffect,
   useCallback,
-  FC, useState, useRef,
+  FC, useState, useRef, memo,
 } from 'react';
 import { OTSession } from 'opentok-react';
 
@@ -18,7 +18,7 @@ import {
   JoinMeetingContainer, MainContainer, MessageWrapper, SendMessageContainer, StreamsContainer, Text, Button, InputContainer, ChatHeader, MainChatWindow,
 } from './index.styled';
 
-const JoinMeetingComponent: FC <{}> = () => {
+const JoinMeetingComponent: FC <{}> = memo(() => {
   const [error, setError] = useState<any>('');
   const [streams, setStreams] = useState<any>([])
   const [connected, setConnected] = useState <boolean>(false);
@@ -26,6 +26,7 @@ const JoinMeetingComponent: FC <{}> = () => {
     sessionHelper: { session: Session; streams: Stream };
   }>();
   const [inputValue, setInputValue] = useState<string>('');
+
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
     streams ? console.info('Stream :', streams) : null
@@ -72,9 +73,9 @@ const JoinMeetingComponent: FC <{}> = () => {
     },
   }
 
-  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e : React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
-  }
+  }, [])
 
   const handleSend = useCallback(() => {
     if (!otSessionRef.current?.sessionHelper.session) {
@@ -135,6 +136,6 @@ const JoinMeetingComponent: FC <{}> = () => {
       </SendMessageContainer>
     </MainContainer>
   )
-}
+})
 
 export default JoinMeetingComponent;
