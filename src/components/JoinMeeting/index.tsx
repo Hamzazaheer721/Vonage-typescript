@@ -1,7 +1,5 @@
-/* eslint-disable no-debugger */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-import { OTSession, OTStreams } from 'opentok-react';
+import { OTSession } from 'opentok-react';
 import {
   useEffect,
   useCallback,
@@ -16,6 +14,10 @@ const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>('');
   const [streams, setStreams] = useState<any>([])
   const [connected, setConnected] = useState <boolean>(false);
+  useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
+    streams ? console.log('Stream :', streams) : null
+  }, [streams])
 
   const onError = useCallback((err: any) => {
     setError(`Failed to connect : ${err.message}`);
@@ -31,10 +33,8 @@ const JoinMeetingComponent: FC <{}> = () => {
       setConnected(false);
     },
     sessionConnected: () => {
-      console.info('SESSION CONNECTED')
     },
     sessionDestroyed: () => {
-      console.info('SESSION DESTROYED')
     },
     streamCreated: ({ stream } : any) => {
       console.info('STREAM HAS BEEN CREATED')
@@ -42,9 +42,11 @@ const JoinMeetingComponent: FC <{}> = () => {
     },
     streamDestroyed: ({ stream } : any) => {
       console.info('STREAM HAS BEEN DESTROYED');
-      setStreams((_streams: any) => {
-        _streams?.filter((_stream: any) => (_stream.id === stream.id))
-      })
+      if (streams.length > 0) {
+        setStreams((_streams: any) => {
+          _streams?.filter((_stream: any) => (_stream.id === stream.id))
+        })
+      }
     },
     streamPropertyChanged: ({ stream }:any) => {
       console.info('STREAM HAS BEEN CHANGED');

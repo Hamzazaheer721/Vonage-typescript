@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FC, useState } from 'react';
 import { OTSubscriber } from 'opentok-react';
 import CheckboxComponent from '../CheckBox';
@@ -21,9 +22,17 @@ const SubscriberComponent : FC<ISubscriberComponentProps> = ({ stream }:ISubscri
     setError(`Failed to Subscribe : ${err}`);
   }
 
+  const handleSubscribeEvent = {
+    connected: () => {
+      console.info('SUBSCRIBER IS CONNECTED TO YOUR VIDEO STREAM')
+    },
+    destroyed: () => {
+      console.info('SUBSCRIBED CONNECTION HAS BEEN DESTORYED')
+    },
+  }
   return (
     <div>
-      Subscriber
+      <h5>I&apos;m subscribing to following video</h5>
       {error && (
       <h1>
         {' '}
@@ -36,6 +45,9 @@ const SubscriberComponent : FC<ISubscriberComponentProps> = ({ stream }:ISubscri
           subscribeToAudio: audio,
           subscribeToVideo: video,
         }}
+        // eslint-disable-next-line no-console
+        onSubscribe={() => console.info('SUBSCRIBED SUCCESSFULLY')}
+        eventHandlers={handleSubscribeEvent}
         onError={onError}
       />
       <CheckboxComponent label="Subscribe to Audio" initialChecked={audio} _onChange={setAudio} />

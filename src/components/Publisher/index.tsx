@@ -3,6 +3,9 @@ import { OTPublisher } from 'opentok-react';
 import { FC, useState } from 'react';
 import CheckboxComponent from '../CheckBox';
 
+// interface IPublisherProps {
+//   changeConnected: () => void;
+// }
 const PublisherComponent : FC<{}> = () => {
   const [error, setError] = useState<any>(null);
   const [audio, changeAudio] = useState<any>(true);
@@ -52,7 +55,7 @@ const PublisherComponent : FC<{}> = () => {
   };
   return (
     <div>
-      I am going in Publisher
+      <h5>I&apos;m publishing the following the video</h5>
       {error ? (
         <div>
           {error}
