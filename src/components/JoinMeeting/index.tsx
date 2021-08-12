@@ -15,9 +15,8 @@ import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
 import {
-  JoinMeetingContainer, MainContainer, SendMessageContainer, StreamsContainer, Text,
+  JoinMeetingContainer, MainContainer, MessageWrapper, SendMessageContainer, StreamsContainer, Text, Button, InputContainer, ChatHeader, MainChatWindow,
 } from './index.styled';
-import { Button, InputContainer } from '../Login/index.styled';
 
 const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>('');
@@ -85,6 +84,7 @@ const JoinMeetingComponent: FC <{}> = () => {
     session.signal({
       data: inputValue,
     })
+    setInputValue('');
     return true;
   }, [])
 
@@ -121,8 +121,17 @@ const JoinMeetingComponent: FC <{}> = () => {
         </OTSession>
       </JoinMeetingContainer>
       <SendMessageContainer>
-        <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
-        <Button type="button" onClick={handleSend}> Click to send message</Button>
+        <ChatHeader>
+          Chat
+        </ChatHeader>
+        <MainChatWindow>
+          heyy
+          hey
+        </MainChatWindow>
+        <MessageWrapper>
+          <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
+          <Button type="button" onClick={handleSend}> Send</Button>
+        </MessageWrapper>
       </SendMessageContainer>
     </MainContainer>
   )
