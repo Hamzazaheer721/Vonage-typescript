@@ -1,5 +1,6 @@
 /* eslint-disable react/require-default-props */
 import { FC, memo, useMemo } from 'react'
+import SmallerText from './index.styled';
 
 interface IConnectionProps {
   connection? : boolean;
@@ -9,10 +10,12 @@ const ConnectionStatusComponent : FC<IConnectionProps> = memo(({ connection }:IC
   return (
     <div>
       <strong>
-        {' '}
-        Status:
-        {' '}
-        {status}
+        <SmallerText>
+          Status:
+          {' '}
+          {status}
+        </SmallerText>
+
       </strong>
     </div>
   )

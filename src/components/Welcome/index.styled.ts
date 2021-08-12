@@ -13,7 +13,7 @@ export const Container = styled.div`
 
 `
 export const WelcomeText = styled.h1`
-  color: black; 
+  color: #f5f5f5; 
   font-size : 20px; 
 `
 export const JoinRoomButton = styled.button`

@@ -10,6 +10,7 @@ export const JoinMeetingContainer = styled.div`
     flex-direction: column;
     background-color: #3A3B3C;
     height: 100%;
+    overflow: x-axis;
 `
 
 export const Text = styled.h1`

@@ -4,6 +4,7 @@ import {
 } from 'react';
 import { OTPublisher, OTPublisherRef } from 'opentok-react';
 import CheckboxComponent from '../CheckBox';
+import SmallerText from '../ConnectionStatus/index.styled';
 
 const PublisherComponent : FC<{}> = () => {
   const [error, setError] = useState<any>(null);
@@ -56,7 +57,7 @@ const PublisherComponent : FC<{}> = () => {
 
   return (
     <div>
-      <h5>I&apos;m publishing the following the video</h5>
+      <SmallerText>I&apos;m publishing the following the video </SmallerText>
       {error ? (
         <div>
           {error}

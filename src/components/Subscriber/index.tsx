@@ -2,6 +2,7 @@
 import { FC, useState } from 'react';
 import { OTSubscriber } from 'opentok-react';
 import CheckboxComponent from '../CheckBox';
+import SmallerText from '../ConnectionStatus/index.styled';
 
 interface ISubscriberComponentProps{
   stream : any
@@ -33,7 +34,7 @@ const SubscriberComponent : FC<ISubscriberComponentProps> = ({ stream }:ISubscri
 
   return (
     <div>
-      <h5>I&apos;m subscribing to following video</h5>
+      <SmallerText>I&apos;m subscribing to following video </SmallerText>
       {error && (
       <h1>
         {' '}
