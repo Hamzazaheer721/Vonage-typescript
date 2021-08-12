@@ -4,6 +4,7 @@ export const MainContainer = styled.div`
     display: flex;
     height: 100vh;
 `
+
 export const JoinMeetingContainer = styled.div`
     flex: 0.8;
     display: flex;
@@ -31,6 +32,7 @@ export const SendMessageContainer = styled.div`
     background-color: #242424;
     border-left: 1px solid #3D3D42;
 `
+
 export const MessageWrapper = styled.div`
     display: flex;
     justify-content : space-around;
@@ -47,16 +49,24 @@ export const MainChatWindow = styled.div`
     over-flow-y: scroll;
     color: #f5f5f5;
 `
+
 export const InputContainer = styled.input`
     margin-top: 10px;
     border-radius : 8px;
+    flex:1;
     &:focus{
       border-radius: 8px;
       outline: none;
       box-shadow: 0px 0px 2px gray;
     }
 `
+
 export const Button = styled.button`
     margin-top: 11px;
     border-radius: 8px;
+`
+
+export const SmallestText = styled.div`
+    font-size: 12px;
+    color: #f5f5f5;
 `

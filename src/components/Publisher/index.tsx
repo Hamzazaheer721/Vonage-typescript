@@ -11,7 +11,7 @@ const PublisherComponent : FC<{}> = () => {
   const [audio, changeAudio] = useState<any>(true);
   const [video, changeVideo] = useState<any>(true);
   const [videoSource, setVideoSource] = useState<any>('camera');
-  const otPublisher = createRef<OTPublisherRef>()
+  const otPublisher = createRef<OTPublisherRef>();
 
   const setAudio = (_audio: any) => {
     changeAudio(_audio)

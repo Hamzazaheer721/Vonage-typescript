@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 import React, {
-  useEffect,
   useCallback,
   FC, useState, useRef, memo,
 } from 'react';
 import { OTSession } from 'opentok-react';
 
 import {
-  Session, SessionEventHandlers, Stream, StreamCreatedEvent, StreamDestroyedEvent, StreamPropertyChangedEvent,
+  Session, SessionEventHandlers, SignalEvent, Stream, StreamCreatedEvent, StreamDestroyedEvent, StreamPropertyChangedEvent,
   // eslint-disable-next-line import/no-unresolved
 } from 'opentok-react/types/opentok';
 
@@ -15,7 +14,7 @@ import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
 import {
-  JoinMeetingContainer, MainContainer, MessageWrapper, SendMessageContainer, StreamsContainer, Text, Button, InputContainer, ChatHeader, MainChatWindow,
+  JoinMeetingContainer, MainContainer, MessageWrapper, SendMessageContainer, StreamsContainer, Text, Button, InputContainer, ChatHeader, MainChatWindow, SmallestText,
 } from './index.styled';
 
 interface IStreams {
@@ -26,15 +25,11 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
   const [error, setError] = useState<any>('');
   const [streams, setStreams] = useState<IStreams>({})
   const [connected, setConnected] = useState <boolean>(false);
+  const [messages, setMessages] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState<string>('');
   const otSessionRef = useRef<{
     sessionHelper: { session: Session; streams: Stream };
   }>();
-  const [inputValue, setInputValue] = useState<string>('');
-
-  useEffect(() => {
-    // eslint-disable-next-line no-unused-expressions
-    streams ? console.info('Stream :', streams) : null
-  }, [streams])
 
   const onError = useCallback((err: any) => {
     setError(`Failed to connect : ${err.message}`);
@@ -49,9 +44,10 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
       console.info('CONNECTION DESTROYED');
       setConnected(false);
     },
-    signal: (signal : any) => {
+    signal: (signal : SignalEvent) => {
       if (streams) {
-        console.log('SIGNAL', signal)
+        console.info('SIGNAL : ', signal)
+        setMessages((prevMessages) => [...prevMessages, signal.data])
       }
     },
     streamCreated: ({ stream }: StreamCreatedEvent) => {
@@ -77,21 +73,23 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
     },
   }
 
-  const handleChange = useCallback((e : React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
-  }, [])
+  }
 
-  const handleSend = useCallback(() => {
+  const handleSend = () => {
+    const messageToSend = inputValue;
+    console.log(messageToSend, inputValue)
     if (!otSessionRef.current?.sessionHelper.session) {
       return false
     }
     const { session } = otSessionRef.current.sessionHelper
     session.signal({
-      data: inputValue,
+      data: messageToSend,
     })
-    setInputValue('');
+    setInputValue('')
     return true;
-  }, [])
+  }
 
   return (
     <MainContainer>
@@ -130,8 +128,15 @@ const JoinMeetingComponent: FC <{}> = memo(() => {
           Chat
         </ChatHeader>
         <MainChatWindow>
-          heyy
-          hey
+          {messages.map(
+            (message) => (
+              <h1>
+                {' '}
+                <SmallestText>{message}</SmallestText>
+                {' '}
+              </h1>
+            ),
+          )}
         </MainChatWindow>
         <MessageWrapper>
           <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
