@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
-import { OTPublisher } from 'opentok-react';
-import { FC, useState } from 'react';
+import {
+  createRef, FC, useState,
+} from 'react';
+import { OTPublisher, OTPublisherRef } from 'opentok-react';
 import CheckboxComponent from '../CheckBox';
 
 // interface IPublisherProps {
@@ -11,7 +13,7 @@ const PublisherComponent : FC<{}> = () => {
   const [audio, changeAudio] = useState<any>(true);
   const [video, changeVideo] = useState<any>(true);
   const [videoSource, setVideoSource] = useState<any>('camera');
-
+  const otPublisher = createRef<OTPublisherRef>()
   const setAudio = (_audio: any) => {
     changeAudio(_audio)
   }
@@ -62,6 +64,7 @@ const PublisherComponent : FC<{}> = () => {
         </div>
       ) : null}
       <OTPublisher
+        ref={otPublisher}
         properties={{
           publishAudio: audio,
           publishVideo: video,

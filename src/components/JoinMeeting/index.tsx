@@ -1,19 +1,20 @@
 /* eslint-disable no-console */
-import { OTSession } from 'opentok-react';
 import {
   useEffect,
   useCallback,
-  FC, useState,
+  FC, useState, useRef,
 } from 'react';
-
+import { OTSession } from 'opentok-react';
 import ConnectionStatusComponent from '../ConnectionStatus';
 import PublisherComponent from '../Publisher';
 import SubscriberComponent from '../Subscriber';
+import JoinMeetingContainer, { Text } from './index.styled';
 
 const JoinMeetingComponent: FC <{}> = () => {
   const [error, setError] = useState<any>('');
   const [streams, setStreams] = useState<any>([])
   const [connected, setConnected] = useState <boolean>(false);
+  const otSession = useRef<any>();
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
     streams ? console.log('Stream :', streams) : null
@@ -57,10 +58,31 @@ const JoinMeetingComponent: FC <{}> = () => {
       })
     },
   }
+
+  // const onSignalSend = (data:any) => {
+  //   if (otSession.current !== null) {
+  //     otSession.current.sessionHelper.session.signal({
+  //       type: 'msg',
+  //       data,
+  //     }, (otError :any) => {
+  //       if (otError) {
+  //         console.log('onSignalSend otError', otError)
+  //       } else {
+  //         console.log('onSignalSend Success', data)
+  //       }
+  //     })
+  //   }
+  // }
+  // const onSignalReceive = (signal :any) => {
+  //   console.log('onSignalReceive => ', JSON.parse(signal.data));
+  //   // based on signal data type you can do use switch or conditional statements
+  // }
   return (
-    <div>
-      <h1>Welcome to the room</h1>
+    <JoinMeetingContainer>
+      <Text>Welcome to the room</Text>
       <OTSession
+        // @ts-ignore
+        ref={otSession}
         apiKey="47000694"
         sessionId="2_MX40NzAwMDY5NH5-MTYyODU5MzY3Njg4Nn5rSGtjUmlPQzBSVVgvRWJHZlEwZjVUTkR-fg"
         token="T1==cGFydG5lcl9pZD00NzAwMDY5NCZzaWc9ZDc2MmY4MjY2MWQ1MDg4Y2I5ZTBjZjA4OWYyODJhM2YxZmQzNDEzNTpzZXNzaW9uX2lkPTJfTVg0ME56QXdNRFk1Tkg1LU1UWXlPRFU1TXpZM05qZzRObjVyU0d0alVtbFBRekJTVlZndlJXSkhabEV3WmpWVVRrUi1mZyZjcmVhdGVfdGltZT0xNjI4NTkzOTA1Jm5vbmNlPTAuOTUzODUyNjg0ODAyNTI0NCZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNjMxMTg1OTAzJmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9"
@@ -70,7 +92,7 @@ const JoinMeetingComponent: FC <{}> = () => {
         {error && (
         <div>
           {' '}
-          {error}
+          <Text>{error}</Text>
         </div>
         )}
         {connected && (
@@ -83,7 +105,7 @@ const JoinMeetingComponent: FC <{}> = () => {
         </>
         )}
       </OTSession>
-    </div>
+    </JoinMeetingContainer>
   )
 }
 
