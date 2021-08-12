@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-const JoinMeetingContainer = styled.div`
+export const MainContainer = styled.div`
+    display: flex;
+`
+export const JoinMeetingContainer = styled.div`
+    flex: 0.8;
     display: flex;
     flex-direction: column;
     background-color: #3A3B3C;
@@ -10,4 +14,10 @@ const JoinMeetingContainer = styled.div`
 export const Text = styled.h1`
     color: white;
 `
-export default JoinMeetingContainer;
+
+export const StreamsContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+`

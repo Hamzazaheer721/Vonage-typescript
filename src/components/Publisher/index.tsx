@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, {
   createRef, FC, useState,
@@ -9,13 +10,17 @@ import { Button, InputContainer } from '../Login/index.styled';
 // interface IPublisherProps {
 //   changeConnected: () => void;
 // }
-const PublisherComponent : FC<{}> = () => {
+const PublisherComponent : FC<{
+  // eslint-disable-next-line no-unused-vars
+  onSend: (message: string) => void;
+}> = ({ onSend }) => {
   const [error, setError] = useState<any>(null);
   const [audio, changeAudio] = useState<any>(true);
   const [video, changeVideo] = useState<any>(true);
   const [videoSource, setVideoSource] = useState<any>('camera');
   const [inputValue, setInputValue] = useState<string>('');
   const otPublisher = createRef<OTPublisherRef>()
+
   const setAudio = (_audio: any) => {
     changeAudio(_audio)
   }
@@ -63,10 +68,9 @@ const PublisherComponent : FC<{}> = () => {
     console.info(data)
   }
 
-  // eslint-disable-next-line no-unused-vars
-  const onSignalSend = (data : any) => {
+  const handleButtonPressed = () => {
     if (otPublisher.current) {
-      console.log(otPublisher.current.getPublisher().stream.connection.connectionId)
+      onSend(inputValue);
     }
   }
 
@@ -82,7 +86,7 @@ const PublisherComponent : FC<{}> = () => {
         </div>
       ) : null}
       <InputContainer type="text" placeholder="Enter a message" value={inputValue} onChange={handleChange} />
-      <Button onClick={onSignalSend}> Click to send message</Button>
+      <Button onClick={handleButtonPressed}> Click to send message</Button>
       <OTPublisher
         ref={otPublisher}
         properties={{
